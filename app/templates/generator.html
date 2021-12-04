@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h2>генератор паролей</h2>       
+  <form action="" method="post">
+    <input name="use_numbers" type = 'checkbox'>цыфры<br>
+    <input name="use_letters"type = 'checkbox'>буквы<br>
+    <input name="use_signs"type = 'checkbox'>спец.знаки<br>
+    <input required name="pass_len" type='number' min='1' max='20'> длина пороля<br>
+    <button type= 'submit'>сгенерировать</button>
+  </form>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <h2>пароль:</h2>
+  {% for msg in messages %}
+  {{ msg }}
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+</body>
+</html>
+
+
