@@ -13,7 +13,8 @@ from datetime import datetime
 @my_app.route('/index') # маршруты
 @login_required
 def index():  # функция представления
-    return render_template('index.html', current_date=date.today())
+    all_posts = Post.query.all()
+    return render_template('index.html', current_date=date.today(), posts=all_posts)
 
 
 @my_app.route('/generator', methods=['get', 'post']) # маршруты
@@ -45,10 +46,8 @@ def login():
             login_user(user, remember=remember_me) # авторизовываем пользователя
             return redirect(url_for('index'))
         else:
-            # TODO flashmessages
+            flash('неверный пароль или логин')
             return redirect(url_for('login'))  # перенаправляем пользователя на страницу с логином 
-
-            # TODO redirect to requested page (next)
     elif request.method == 'GET':
         return render_template('login.html')
 
@@ -78,10 +77,7 @@ def register():
 @my_app.route('/user/<requested_username>')  # requested_user_name - запрашиваемое имя пользователя
 def user(requested_username):
     user_from_db = User.query.filter_by(user_name=requested_username).first_or_404()   # ищем пользователя. либо нашли, либо 404 (если не найден)
-    posts = [
-        {'author': user_from_db, 'text': 'Test post #1'},
-        {'author': user_from_db, 'text': 'Test post #2'}
-    ]
+    posts = Post.query.filter_by(author=user_from_db)
     return render_template('user.html', user=user_from_db, posts=posts)
 
 
@@ -126,3 +122,23 @@ def add_post():
         db.session.add(new_post)
         db.session.commit()
         return redirect(url_for('index'))
+
+@my_app.route('/reset_password', methods=['get','post'])
+def reset_password():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    if request.method == 'GET':
+        return render_template('reset_password.html')
+    if request.method == 'POST':
+        form = request.form
+        inputed_email = form.get ('email')
+        user = User.query.filter_by(email=inputed_email).first()
+        if user is not None: # если пользователь найден
+            new_password = utils.generate_pass(8,True,True,True)
+            utils.send_password_to_email(new_password,inputed_email,user.user_name)
+            user.set_password(new_password)
+            db.session.commit()
+            return redirect(url_for ('login'))
+        else:
+            flash('маил ненайден')
+            return redirect(url_for('reset_password'))

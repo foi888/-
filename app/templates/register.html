@@ -4,18 +4,39 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <title>Document</title>
 </head>
 <body>
   {% include '_links.html' %}
+  <div class='container'>
   <h2>регистрация</h2>       
   <form action="" method="post">
-    <input required name="user_name" type = 'text'>имя пользователя<br>
-    <input required name="user_password"type = 'password'>пароль<br>
-    <input name='email' type='email'> маил
-    <button type= 'submit'>регистрация</button>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="username" type="text" class="validate" name="user_name">
+        <label for="username">Username</label>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="password" type="password" class="validate" name="user_password">
+          <label for="password">Password</label>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input name="email" id="email" type="email" class="validate">
+            <label for="email">Email</label>
+          </div>
+        </div>
+        
+    <button class="btn waves-effect waves-light" type= 'submit'>регистрация</button>
     
   </form>
+</div>
 </body>
 </html>
 

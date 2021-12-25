@@ -4,16 +4,26 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <title>Document</title>
 </head>
 <body>
   {% include '_links.html' %}
+  <div class='container'>
   <h2>изменить даные</h2>       
   <form action="" method="post">
-    <input required name="user_name" type = 'text'>имя пользователя<br>
-    <textarea required name="info"></textarea>о себе<br>
-    <button type= 'submit'>сохронить</button>
-    
+    <div class="row">
+      <div class="input-field">
+        <input id="username" type="text" class="validate" name="user_name">
+        <label for="username">Username</label>
+      </div>
+    <label for="textarea1">About</label>
+    <textarea id="textarea1" class="materialize-textarea"  required name="info"></textarea>
+    <button class="btn waves-effect waves-light" type= 'submit'>save</button>
   </form>
+  </div>
 </body>
 </html>
+
+<!-- -->

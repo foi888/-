@@ -40,3 +40,4 @@ class Post(db.Model):
     user_id = Column(db.Integer, db.ForeignKey('user.id'))
 
 # flask db upgrade
+# set FLASK_DEBUG=1
