@@ -38,6 +38,8 @@ class Post(db.Model):
     text = db.Column(db.String(140))
     time = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = Column(db.Integer, db.ForeignKey('user.id'))
-
-# flask db upgrade
-# set FLASK_DEBUG=1
+    likes_count = db.Column(db.Integer, default=0)
+class Likes(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer)
+    post_id = db.Column(db.Integer)
